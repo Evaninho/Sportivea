@@ -1,0 +1,1 @@
+Sportivea est une plateforme collaborative d’agenda sportif permettant de consulter, ajouter et voter pour des événements sportifs (tournois, matchs, compétitions), qu’ils soient amateurs, associatifs ou professionnels.
