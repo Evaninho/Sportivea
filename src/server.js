@@ -4,6 +4,7 @@ const fs = require('fs');
 const path = require('path');
 const { v4: uuidv4 } = require('uuid');
 
+const PORT = process.env.PORT || 3000;
 const app = express();
 app.use(cors());
 app.use(express.json());
@@ -238,6 +239,6 @@ app.post('/api/events/:id/vote', (req, res) => {
 
 // ============ DÉMARRAGE ============
 
-app.listen(3000, () => {
-  console.log('✅ Serveur sur http://localhost:3000');
+app.listen(PORT, "0.0.0.0", () => {
+  console.log("Server started");
 });
