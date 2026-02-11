@@ -19,6 +19,16 @@
       "time": "09:00",
       "category": "Running",
       "votes": 18
+    },
+    {
+      "id": "evt-1770820908469",
+      "title": "Handaballe",
+      "description": "teste",
+      "location": " Blois ",
+      "date": "2026-02-19",
+      "time": "16:30",
+      "category": "Autres",
+      "votes": 51
     }
   ]
 }
