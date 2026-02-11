@@ -8,35 +8,35 @@ document.addEventListener('DOMContentLoaded', loadEvents);
 
 // ============ CHARGER LES ÉVÉNEMENTS ============
 async function loadEvents() {
-  try {
-    const response = await fetch('/api/events');
-    allEvents = await response.json();
-    filteredEvents = allEvents;
-    renderEvents(allEvents);
-  } catch (error) {
-    console.error('Erreur lors du chargement:', error);
-    showEmptyState();
-  }
+    try {
+        const response = await fetch('/api/events');
+        allEvents = await response.json();
+        filteredEvents = allEvents;
+        renderEvents(allEvents);
+    } catch (error) {
+        console.error('Erreur lors du chargement:', error);
+        showEmptyState();
+    }
 }
 
 // ============ AFFICHER LES CARTES ============
 function renderEvents(events) {
-  const container = document.getElementById('events-container');
-  const emptyState = document.getElementById('empty-state');
-  
-  if (events.length === 0) {
+    const container = document.getElementById('events-container');
+    const emptyState = document.getElementById('empty-state');
+
+    if (events.length === 0) {
+        container.innerHTML = '';
+        emptyState.classList.remove('hidden');
+        return;
+    }
+
+    emptyState.classList.add('hidden');
     container.innerHTML = '';
-    emptyState.classList.remove('hidden');
-    return;
-  }
 
-  emptyState.classList.add('hidden');
-  container.innerHTML = '';
-
-  events.forEach(event => {
-    const card = document.createElement('div');
-    card.className = 'bg-white rounded-lg shadow-md hover:shadow-lg transition card-event overflow-hidden';
-    card.innerHTML = `
+    events.forEach(event => {
+        const card = document.createElement('div');
+        card.className = 'bg-white rounded-lg shadow-md hover:shadow-lg transition card-event overflow-hidden';
+        card.innerHTML = `
       <div class="h-40 bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center text-6xl">
         ${getEventEmoji(event.category)}
       </div>
@@ -63,171 +63,182 @@ function renderEvents(events) {
             Détails
           </button>
           <button 
+            id="vote-button-${event.id}"
             onclick="vote('${event.id}')" 
             class="flex-1 bg-orange-500 text-white py-2 rounded-lg hover:bg-orange-600 transition font-bold text-sm"
           >
-            👍 Voter
+            
           </button>
         </div>
       </div>
     `;
-    container.appendChild(card);
-  });
+        container.appendChild(card);
+        const voteButton = document.getElementById('vote-button-' + event.id);
+        if (!token) {
+            voteButton.textContent = ' Connectez-vous pour voter';
+            voteButton.disabled = true;
+            voteButton.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            voteButton.textContent = '👍 Voter maintenant';
+            voteButton.disabled = false;
+            voteButton.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+    });
 }
 
 // ============ VOTER ============
 async function vote(id) {
-  // Vérifier si connecté
-  if (!token) {
-    alert('⚠️ Vous devez être connecté pour voter!');
-    openLoginModal();
-    return;
-  }
-
-  try {
-    const response = await fetch(`/api/events/${id}/vote`, {
-      method: 'POST',
-      headers: { 'authorization': token }
-    });
-
-    if (response.ok) {
-      const data = await response.json();
-      const event = allEvents.find(e => e.id === id);
-      if (event) {
-        event.votes = data.votes;
-        renderEvents(filteredEvents);
-      }
-      alert('✓ Vote enregistré!');
-    } else {
-      const error = await response.json();
-      alert('❌ ' + error.error);
+    // Vérifier si connecté
+    if (!token) {
+        alert('⚠️ Vous devez être connecté pour voter!');
+        openLoginModal();
+        return;
     }
-  } catch (error) {
-    console.error('Erreur vote:', error);
-    alert('Erreur lors du vote');
-  }
+
+    try {
+        const response = await fetch(`/api/events/${id}/vote`, {
+            method: 'POST',
+            headers: { 'authorization': token }
+        });
+
+        if (response.ok) {
+            const data = await response.json();
+            const event = allEvents.find(e => e.id === id);
+            if (event) {
+                event.votes = data.votes;
+                renderEvents(filteredEvents);
+            }
+            alert('✓ Vote enregistré!');
+        } else {
+            const error = await response.json();
+            alert('❌ ' + error.error);
+        }
+    } catch (error) {
+        console.error('Erreur vote:', error);
+        alert('Erreur lors du vote');
+    }
 }
 
 // ============ VOTER DEPUIS LA MODALE ============
 async function voteFromDetail() {
-  if (!currentDetailEventId) return;
-  
-  if (!token) {
-    alert('⚠️ Vous devez être connecté pour voter!');
-    closeDetailModal();
-    openLoginModal();
-    return;
-  }
+    if (!currentDetailEventId) return;
 
-  await vote(currentDetailEventId);
-  closeDetailModal();
-  loadEvents();
+    if (!token) {
+        alert('⚠️ Vous devez être connecté pour voter!');
+        closeDetailModal();
+        openLoginModal();
+        return;
+    }
+
+    await vote(currentDetailEventId);
+    closeDetailModal();
+    loadEvents();
 }
 
 // ============ AFFICHER LES DÉTAILS ============
 function showDetail(id) {
-  const event = allEvents.find(e => e.id === id);
-  if (!event) return;
+    const event = allEvents.find(e => e.id === id);
+    if (!event) return;
 
-  currentDetailEventId = id;
+    currentDetailEventId = id;
 
-  document.getElementById('detail-title').textContent = event.title;
-  document.getElementById('detail-name').textContent = event.title;
-  document.getElementById('detail-desc').textContent = event.description;
-  document.getElementById('detail-location').textContent = event.location;
-  document.getElementById('detail-date').textContent = `${formatDate(event.date)} à ${event.time}`;
-  document.getElementById('detail-category').textContent = event.category;
-  document.getElementById('detail-votes').textContent = event.votes;
+    document.getElementById('detail-title').textContent = event.title;
+    document.getElementById('detail-name').textContent = event.title;
+    document.getElementById('detail-desc').textContent = event.description;
+    document.getElementById('detail-location').textContent = event.location;
+    document.getElementById('detail-date').textContent = `${formatDate(event.date)} à ${event.time}`;
+    document.getElementById('detail-category').textContent = event.category;
+    document.getElementById('detail-votes').textContent = event.votes;
 
-  // Bouton voter - mettre à jour l'état
-  const voteButton = document.getElementById('vote-button');
-  if (!token) {
-    voteButton.textContent = '🔓 Connectez-vous pour voter';
-    voteButton.disabled = true;
-    voteButton.classList.add('opacity-50', 'cursor-not-allowed');
-  } else {
-    voteButton.textContent = '👍 Voter maintenant';
-    voteButton.disabled = false;
-    voteButton.classList.remove('opacity-50', 'cursor-not-allowed');
-  }
+    // Bouton voter - mettre à jour l'état
+    const voteButton = document.getElementById('vote-button');
+    if (!token) {
+        voteButton.textContent = ' Connectez-vous pour voter';
+        voteButton.disabled = true;
+        voteButton.classList.add('opacity-50', 'cursor-not-allowed');
+    } else {
+        voteButton.textContent = '👍 Voter maintenant';
+        voteButton.disabled = false;
+        voteButton.classList.remove('opacity-50', 'cursor-not-allowed');
+    }
 
-  document.getElementById('detail-modal').classList.remove('hidden');
+    document.getElementById('detail-modal').classList.remove('hidden');
 }
 
 function closeDetailModal() {
-  document.getElementById('detail-modal').classList.add('hidden');
-  currentDetailEventId = null;
+    document.getElementById('detail-modal').classList.add('hidden');
+    currentDetailEventId = null;
 }
 
 // ============ MODAL AJOUT ============
 function openModal() {
-  if (!token) {
-    alert('⚠️ Vous devez être connecté pour créer un événement!');
-    openLoginModal();
-    return;
-  }
-  document.getElementById('modal').classList.remove('hidden');
-  document.getElementById('form-event').reset();
+    if (!token) {
+        alert('⚠️ Vous devez être connecté pour créer un événement!');
+        openLoginModal();
+        return;
+    }
+    document.getElementById('modal').classList.remove('hidden');
+    document.getElementById('form-event').reset();
 }
 
 function closeModal() {
-  document.getElementById('modal').classList.add('hidden');
+    document.getElementById('modal').classList.add('hidden');
 }
 
 // Fermer modal au clic sur Esc
 document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape') {
-    closeModal();
-    closeDetailModal();
-  }
+    if (e.key === 'Escape') {
+        closeModal();
+        closeDetailModal();
+    }
 });
 
 // ============ SOUMETTRE LE FORMULAIRE ============
 document.getElementById('form-event').addEventListener('submit', async (e) => {
-  e.preventDefault();
+    e.preventDefault();
 
-  const newEvent = {
-    title: document.getElementById('title').value,
-    description: document.getElementById('description').value,
-    location: document.getElementById('location').value,
-    date: document.getElementById('date').value,
-    time: document.getElementById('time').value,
-    category: document.getElementById('category').value
-  };
+    const newEvent = {
+        title: document.getElementById('title').value,
+        description: document.getElementById('description').value,
+        location: document.getElementById('location').value,
+        date: document.getElementById('date').value,
+        time: document.getElementById('time').value,
+        category: document.getElementById('category').value
+    };
 
-  try {
-    const response = await fetch('/api/events', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newEvent)
-    });
+    try {
+        const response = await fetch('/api/events', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(newEvent)
+        });
 
-    if (response.ok) {
-      alert('✓ Événement créé avec succès!');
-      closeModal();
-      loadEvents();
-    } else {
-      alert('Erreur lors de la création');
+        if (response.ok) {
+            alert('✓ Événement créé avec succès!');
+            closeModal();
+            loadEvents();
+        } else {
+            alert('Erreur lors de la création');
+        }
+    } catch (error) {
+        console.error('Erreur:', error);
+        alert('Erreur serveur');
     }
-  } catch (error) {
-    console.error('Erreur:', error);
-    alert('Erreur serveur');
-  }
 });
 
 // ============ FILTRAGE ============
 function filterEvents() {
-  const searchTerm = document.getElementById('search').value.toLowerCase();
-  const category = document.getElementById('filter-category').value;
+    const searchTerm = document.getElementById('search').value.toLowerCase();
+    const category = document.getElementById('filter-category').value;
 
-  filteredEvents = allEvents.filter(event => {
-    const matchSearch = event.title.toLowerCase().includes(searchTerm) || 
-                       event.description.toLowerCase().includes(searchTerm);
-    const matchCategory = !category || event.category === category;
-    return matchSearch && matchCategory;
-  });
+    filteredEvents = allEvents.filter(event => {
+        const matchSearch = event.title.toLowerCase().includes(searchTerm) ||
+            event.description.toLowerCase().includes(searchTerm);
+        const matchCategory = !category || event.category === category;
+        return matchSearch && matchCategory;
+    });
 
-  renderEvents(filteredEvents);
+    renderEvents(filteredEvents);
 }
 
 document.getElementById('search').addEventListener('input', filterEvents);
@@ -235,24 +246,25 @@ document.getElementById('filter-category').addEventListener('change', filterEven
 
 // ============ UTILITAIRES ============
 function formatDate(dateString) {
-  const options = { year: 'numeric', month: 'long', day: 'numeric' };
-  return new Date(dateString).toLocaleDateString('fr-FR', options);
+    const options = { year: 'numeric', month: 'long', day: 'numeric' };
+    return new Date(dateString).toLocaleDateString('fr-FR', options);
 }
 
 function getEventEmoji(category) {
-  const emojis = {
-    'Football': '⚽',
-    'Running': '🏃',
-    'Tennis': '🎾',
-    'Basketball': '🏀',
-    'Natation': '🏊',
-    'Escalade': '🧗',
-    'Autres': '🏆'
-  };
-  return emojis[category] || '🏆';
+    const emojis = {
+        'Football': '⚽',
+        'Volleyball': '🏐',
+        'Running': '🏃',
+        'Tennis': '🎾',
+        'Basketball': '🏀',
+        'Natation': '🏊',
+        'Escalade': '🧗',
+        'Autres': '🏆'
+    };
+    return emojis[category] || '🏆';
 }
 
 function showEmptyState() {
-  document.getElementById('events-container').innerHTML = '';
-  document.getElementById('empty-state').classList.remove('hidden');
+    document.getElementById('events-container').innerHTML = '';
+    document.getElementById('empty-state').classList.remove('hidden');
 }

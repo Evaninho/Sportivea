@@ -18,7 +18,10 @@
       "date": "2025-02-22",
       "time": "09:00",
       "category": "Running",
-      "votes": 18
+      "votes": 19,
+      "voters": [
+        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
+      ]
     },
     {
       "id": "evt-1770820908469",
@@ -28,7 +31,10 @@
       "date": "2026-02-19",
       "time": "16:30",
       "category": "Autres",
-      "votes": 51
+      "votes": 52,
+      "voters": [
+        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
+      ]
     }
   ]
 }
