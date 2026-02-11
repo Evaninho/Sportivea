@@ -3,59 +3,299 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sportivea</title>
+  <title>Sportivea - Vivez le sport, tant qu'il est là</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .card-event {
+      animation: fadeIn 0.3s ease-out;
+    }
+    .card-event:hover {
+      transform: translateY(-5px);
+    }
+  </style>
 </head>
 <body class="bg-gray-50">
 
-<!-- HEADER -->
+<!-- ============ HEADER ============ -->
 <header class="bg-white shadow-md sticky top-0 z-50">
   <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <h1 class="text-2xl font-bold text-emerald-600">⚽ Sportivea</h1>
-    <button onclick="openModal()" class="bg-emerald-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700">
-      + Ajouter
+    <div class="flex items-center gap-3">
+      <span class="text-3xl">⚽</span>
+      <div>
+        <h1 class="text-2xl font-bold text-emerald-600">Sportivea</h1>
+        <p class="text-xs text-gray-500">Vivez le sport, tant qu'il est là</p>
+      </div>
+    </div>
+    <button 
+      onclick="openModal()" 
+      class="bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition font-semibold shadow-md hover:shadow-lg"
+    >
+      + Ajouter un événement
     </button>
   </nav>
 </header>
 
-<!-- HERO -->
-<section class="bg-gradient-to-r from-emerald-600 to-blue-600 text-white py-12 px-6">
+<!-- ============ HERO SECTION ============ -->
+<section class="bg-gradient-to-r from-emerald-600 to-blue-600 text-white py-16 px-6">
   <div class="max-w-7xl mx-auto text-center">
-    <h2 class="text-4xl font-bold mb-4">Vivez le sport, tant qu'il est là.</h2>
-    <p class="text-lg text-emerald-100">Découvrez et votez pour vos événements sportifs</p>
+    <h2 class="text-5xl font-bold mb-4">Vivez le sport, tant qu'il est là.</h2>
+    <p class="text-xl text-emerald-100 mb-8">Découvrez, votez et rejoignez les événements sportifs qui vous passionnent</p>
+    
+    <!-- Barre de recherche -->
+    <div class="flex gap-4 max-w-2xl mx-auto">
+      <input 
+        type="text" 
+        id="search" 
+        placeholder="Chercher un événement..." 
+        class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
+      >
+      <select 
+        id="filter-category"
+        class="px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
+      >
+        <option value="">Toutes catégories</option>
+        <option value="Football">Football</option>
+        <option value="Running">Running</option>
+        <option value="Tennis">Tennis</option>
+        <option value="Basketball">Basketball</option>
+        <option value="Natation">Natation</option>
+        <option value="Escalade">Escalade</option>
+      </select>
+      <button 
+        onclick="filterEvents()" 
+        class="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition font-semibold"
+      >
+        🔍 Chercher
+      </button>
+    </div>
   </div>
 </section>
 
-<!-- ÉVÉNEMENTS -->
+<!-- ============ CONTENU PRINCIPAL ============ -->
 <main class="max-w-7xl mx-auto px-6 py-12">
-  <h3 class="text-3xl font-bold mb-8">Événements</h3>
   
-  <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-    <!-- Les cartes vont se remplir ici avec du JavaScript -->
+  <!-- Titre section -->
+  <div class="mb-12">
+    <h3 class="text-4xl font-bold text-gray-900">Événements en vedette</h3>
+    <p class="text-gray-600 mt-2 text-lg">Découvrez les meilleurs événements sportifs de votre région</p>
   </div>
+
+  <!-- GRILLE DE CARTES -->
+  <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+    <!-- Les cartes vont se remplir avec JavaScript -->
+  </div>
+
+  <!-- Message si aucun événement -->
+  <div id="empty-state" class="text-center py-12 hidden">
+    <p class="text-gray-500 text-lg">Aucun événement trouvé</p>
+    <button 
+      onclick="openModal()" 
+      class="mt-4 bg-emerald-600 text-white px-6 py-3 rounded-lg hover:bg-emerald-700 transition"
+    >
+      + Créer le premier
+    </button>
+  </div>
+
 </main>
 
-<!-- MODAL AJOUT -->
-<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center">
-  <div class="bg-white rounded-lg p-8 max-w-md w-full">
-    <h2 class="text-2xl font-bold mb-4">Ajouter un événement</h2>
+<!-- ============ FOOTER ============ -->
+<footer class="bg-gray-900 text-white py-12 px-6 mt-16">
+  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+    <div>
+      <h4 class="text-lg font-bold mb-4">Sportivea</h4>
+      <p class="text-gray-400">La plateforme collaborative pour tous les événements sportifs</p>
+    </div>
+    <div>
+      <h4 class="text-lg font-bold mb-4">Liens rapides</h4>
+      <ul class="space-y-2 text-gray-400">
+        <li><a href="#" class="hover:text-emerald-400 transition">À propos</a></li>
+        <li><a href="#" class="hover:text-emerald-400 transition">Contact</a></li>
+        <li><a href="#" class="hover:text-emerald-400 transition">Conditions</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4 class="text-lg font-bold mb-4">Contact</h4>
+      <p class="text-gray-400">📧 info@sportivea.fr</p>
+      <p class="text-gray-400">📞 02 47 XX XX XX</p>
+    </div>
+  </div>
+  <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+    <p>&copy; 2025 Sportivea. Tous droits réservés.</p>
+  </div>
+</footer>
+
+<!-- ============ MODAL AJOUT ÉVÉNEMENT ============ -->
+<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto">
     
-    <form id="form-event">
-      <input type="text" id="title" placeholder="Titre" required class="w-full px-4 py-2 border rounded-lg mb-4">
-      <input type="text" id="description" placeholder="Description" required class="w-full px-4 py-2 border rounded-lg mb-4">
-      <input type="text" id="location" placeholder="Lieu" required class="w-full px-4 py-2 border rounded-lg mb-4">
-      <input type="date" id="date" required class="w-full px-4 py-2 border rounded-lg mb-4">
-      <input type="time" id="time" required class="w-full px-4 py-2 border rounded-lg mb-4">
-      <input type="text" id="category" placeholder="Catégorie" class="w-full px-4 py-2 border rounded-lg mb-4">
+    <!-- Header modal -->
+    <div class="sticky top-0 bg-emerald-600 text-white p-6 flex justify-between items-center">
+      <h2 class="text-2xl font-bold">Créer un événement</h2>
+      <button onclick="closeModal()" class="text-2xl hover:opacity-80">×</button>
+    </div>
+
+    <!-- Formulaire -->
+    <form id="form-event" class="p-6 space-y-4">
       
-      <div class="flex gap-2">
-        <button type="button" onclick="closeModal()" class="flex-1 bg-gray-200 py-2 rounded-lg">Annuler</button>
-        <button type="submit" class="flex-1 bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700">Créer</button>
+      <div>
+        <label class="block text-sm font-semibold text-gray-900 mb-2">Titre *</label>
+        <input 
+          type="text" 
+          id="title" 
+          placeholder="ex: Tournoi de Football" 
+          required 
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 focus:border-transparent"
+        >
       </div>
+
+      <div>
+        <label class="block text-sm font-semibold text-gray-900 mb-2">Description *</label>
+        <textarea 
+          id="description" 
+          placeholder="Décrivez votre événement..." 
+          required 
+          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600 h-24"
+        ></textarea>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Lieu *</label>
+          <input 
+            type="text" 
+            id="location" 
+            placeholder="ex: Stade Municipal" 
+            required 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
+          >
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Catégorie *</label>
+          <select 
+            id="category" 
+            required 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
+          >
+            <option value="">Sélectionner</option>
+            <option value="Football">Football</option>
+            <option value="Running">Running</option>
+            <option value="Tennis">Tennis</option>
+            <option value="Basketball">Basketball</option>
+            <option value="Natation">Natation</option>
+            <option value="Escalade">Escalade</option>
+            <option value="Autres">Autres</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Date *</label>
+          <input 
+            type="date" 
+            id="date" 
+            required 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
+          >
+        </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Heure *</label>
+          <input 
+            type="time" 
+            id="time" 
+            required 
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-600"
+          >
+        </div>
+      </div>
+
+      <div class="bg-emerald-50 p-4 rounded-lg border border-emerald-200">
+        <p class="text-sm text-emerald-700">ℹ️ Les champs marqués avec <span class="font-bold">*</span> sont obligatoires</p>
+      </div>
+
+      <!-- Boutons -->
+      <div class="flex gap-4 justify-end pt-4 border-t">
+        <button 
+          type="button" 
+          onclick="closeModal()" 
+          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50 transition"
+        >
+          Annuler
+        </button>
+        <button 
+          type="submit" 
+          class="px-6 py-3 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition shadow-md"
+        >
+          ✓ Créer l'événement
+        </button>
+      </div>
+
     </form>
   </div>
 </div>
 
+<!-- ============ MODAL DÉTAILS ============ -->
+<div id="detail-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+  <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+    
+    <!-- Header modal -->
+    <div class="bg-gradient-to-r from-emerald-600 to-blue-600 text-white p-6 flex justify-between items-center">
+      <h2 id="detail-title" class="text-2xl font-bold">Détails de l'événement</h2>
+      <button onclick="closeDetailModal()" class="text-2xl hover:opacity-80">×</button>
+    </div>
+
+    <!-- Contenu -->
+    <div class="p-8 space-y-6">
+      
+      <div>
+        <h3 id="detail-name" class="text-2xl font-bold text-gray-900 mb-4">Titre</h3>
+        <p id="detail-desc" class="text-gray-700 leading-relaxed">Description...</p>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 bg-gray-50 p-6 rounded-lg">
+        <div>
+          <p class="text-sm text-gray-600 font-semibold">📍 Lieu</p>
+          <p id="detail-location" class="text-lg text-gray-900">Lieu</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600 font-semibold">📅 Date et Heure</p>
+          <p id="detail-date" class="text-lg text-gray-900">Date</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600 font-semibold">📂 Catégorie</p>
+          <p id="detail-category" class="text-lg text-gray-900">Catégorie</p>
+        </div>
+        <div>
+          <p class="text-sm text-gray-600 font-semibold">👍 Votes</p>
+          <p id="detail-votes" class="text-lg text-orange-600 font-bold">0</p>
+        </div>
+      </div>
+
+      <!-- Boutons d'action -->
+      <div class="flex gap-4 justify-end pt-4 border-t">
+        <button 
+          onclick="closeDetailModal()" 
+          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50 transition"
+        >
+          Fermer
+        </button>
+        <button 
+          onclick="voteFromDetail()" 
+          class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition shadow-md"
+        >
+          👍 Voter maintenant
+        </button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ============ JAVASCRIPT ============ -->
 <script src="/js/app.js"></script>
 
 </body>
