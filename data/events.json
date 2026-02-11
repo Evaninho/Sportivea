@@ -1,0 +1,24 @@
+{
+  "events": [
+    {
+      "id": "evt-001",
+      "title": "Tournoi de Football",
+      "description": "Un tournoi amical",
+      "location": "Stade Municipal",
+      "date": "2025-02-15",
+      "time": "14:00",
+      "category": "Football",
+      "votes": 24
+    },
+    {
+      "id": "evt-002",
+      "title": "Marathon 10km",
+      "description": "Course urbaine",
+      "location": "Centre-ville",
+      "date": "2025-02-22",
+      "time": "09:00",
+      "category": "Running",
+      "votes": 18
+    }
+  ]
+}
