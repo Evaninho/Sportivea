@@ -20,10 +20,12 @@ async function verifyToken() {
     if (response.ok) {
       const data = await response.json();
       currentUser = data.user;
+      localStorage.setItem('userId', currentUser.id);
       showUserSection();
     } else {
       token = null;
       localStorage.removeItem('token');
+      localStorage.removeItem('userId');
       showAuthButtons();
     }
   } catch (error) {

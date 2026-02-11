@@ -48,10 +48,11 @@
       "date": "2031-10-22",
       "time": "18:19",
       "category": "Autres",
-      "votes": 111,
+      "votes": 112,
       "createdAt": "2026-02-11T15:00:26.549Z",
       "voters": [
-        "15e5a849-5be4-4057-bfe2-13c47afa8c03"
+        "15e5a849-5be4-4057-bfe2-13c47afa8c03",
+        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
       ]
     },
     {
@@ -62,8 +63,11 @@
       "date": "2026-02-19",
       "time": "18:08",
       "category": "Autres",
-      "votes": 0,
-      "createdAt": "2026-02-11T15:06:59.111Z"
+      "votes": 1,
+      "createdAt": "2026-02-11T15:06:59.111Z",
+      "voters": [
+        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
+      ]
     },
     {
       "id": "evt-1770824076486",
@@ -73,10 +77,11 @@
       "date": "2026-02-12",
       "time": "09:38",
       "category": "Tennis",
-      "votes": 1,
+      "votes": 2,
       "createdAt": "2026-02-11T15:34:36.486Z",
       "voters": [
-        "15e5a849-5be4-4057-bfe2-13c47afa8c03"
+        "15e5a849-5be4-4057-bfe2-13c47afa8c03",
+        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
       ]
     },
     {
@@ -101,11 +106,12 @@
       "date": "2029-06-14",
       "time": "05:21",
       "category": "Natation",
-      "votes": 2,
+      "votes": 3,
       "createdAt": "2026-02-11T15:37:04.959Z",
       "voters": [
         "15e5a849-5be4-4057-bfe2-13c47afa8c03",
-        "39fb4664-50ed-4e5e-9173-bea56ffefb6b"
+        "39fb4664-50ed-4e5e-9173-bea56ffefb6b",
+        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
       ]
     },
     {

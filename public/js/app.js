@@ -38,6 +38,11 @@ function renderEvents(events) {
 
   events.forEach(event => {
     const card = document.createElement('div');
+    let userID = localStorage.getItem('userId');
+    console.log(event.voters);
+    console.log(event.s);
+
+    
     card.className = 'bg-white rounded-lg shadow-md hover:shadow-lg transition card-event overflow-hidden';
     card.innerHTML = `
       <div class="h-40 flex items-center justify-center text-6xl">
@@ -79,6 +84,9 @@ function renderEvents(events) {
         const voteButton = document.getElementById('vote-button-' + event.id);
         if (!token) {
             voteButton.textContent = ' Connectez-vous pour voter';
+            voteButton.disabled = false;
+        } else if (event.voters && event.voters.includes(userID)) {
+            voteButton.textContent = '👍 Déjà voté';
             voteButton.disabled = true;
             voteButton.classList.add('opacity-50', 'cursor-not-allowed');
         } else {
