@@ -37,8 +37,8 @@ function renderEvents(events) {
     const card = document.createElement('div');
     card.className = 'bg-white rounded-lg shadow-md hover:shadow-lg transition card-event overflow-hidden';
     card.innerHTML = `
-      <div class="h-40 bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center text-6xl">
-        ${getEventEmoji(event.category)}
+      <div class="h-40 flex items-center justify-center text-6xl">
+        <img class="h-40 w-full object-cover" src='${getEventImages(event.category)}'>
       </div>
 
       <div class="p-5">
@@ -239,17 +239,17 @@ function formatDate(dateString) {
   return new Date(dateString).toLocaleDateString('fr-FR', options);
 }
 
-function getEventEmoji(category) {
-  const emojis = {
-    'Football': '⚽',
-    'Running': '🏃',
-    'Tennis': '🎾',
-    'Basketball': '🏀',
-    'Natation': '🏊',
-    'Escalade': '🧗',
-    'Autres': '🏆'
+function getEventImages(category) {
+  const images = {
+    'Football': './img/foot.jpg',
+    'Running': './img/running.png',
+    'Tennis': './img/tennis.jpg',
+    'Basketball': './img/basket.png',
+    'Natation': './img/natation.png',
+    'Escalade': './img/escalade.jpg',
+    'Autres': './img/autres.png'
   };
-  return emojis[category] || '🏆';
+  return images[category] || './img/autres.png';
 }
 
 function showEmptyState() {
