@@ -28,19 +28,6 @@
       ]
     },
     {
-      "id": "evt-1770820908469",
-      "title": "Handball",
-      "description": "teste",
-      "location": " Blois ",
-      "date": "2026-02-19",
-      "time": "16:30",
-      "category": " ",
-      "votes": 52,
-      "voters": [
-        "15e5a849-5be4-4057-bfe2-13c47afa8c03"
-      ]
-    },
-    {
       "id": "evt-1770822026549",
       "title": "Tournoi de gargouille",
       "description": "Ce tournoi à un potentiel monstre ",
@@ -52,20 +39,6 @@
       "createdAt": "2026-02-11T15:00:26.549Z",
       "voters": [
         "15e5a849-5be4-4057-bfe2-13c47afa8c03",
-        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
-      ]
-    },
-    {
-      "id": "evt-1770822419111",
-      "title": "dd",
-      "description": "dd",
-      "location": "Chez didine",
-      "date": "2026-02-19",
-      "time": "18:08",
-      "category": "Autres",
-      "votes": 1,
-      "createdAt": "2026-02-11T15:06:59.111Z",
-      "voters": [
         "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
       ]
     },
