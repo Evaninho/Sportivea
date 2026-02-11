@@ -6,16 +6,31 @@
       "email": "o@o.o",
       "password": "Password",
       "token": "b783cb0b-804f-4895-b0a2-4ad2586ed7b7",
-      "createdAt": "2026-02-11T14:59:44.637Z",
+      "createdAt": "2026-02-11T14:59:44.637Z"
     },
     {
-
       "id": "15e5a849-5be4-4057-bfe2-13c47afa8c03",
       "username": "roger le bon vieux franck",
       "email": "evan.corbiere91@gmail.com",
       "password": "okgoat",
       "token": "e236fd60-de60-4036-bcad-afaa69f86641",
       "createdAt": "2026-02-11T14:58:32.357Z"
+    },
+    {
+      "id": "02b43c40-f556-4969-8396-2c5f517ecdb9",
+      "username": "jeanjean",
+      "email": "jeanjean@gmail.fr",
+      "password": "jeanjean",
+      "token": "01423f72-3b63-4138-b2b9-171a268492d1",
+      "createdAt": "2026-02-11T16:05:14.903Z"
+    },
+    {
+      "id": "39fb4664-50ed-4e5e-9173-bea56ffefb6b",
+      "username": "lulu",
+      "email": "lulu@gmail.de",
+      "password": "lulu",
+      "token": "9fad3da7-c6c6-410d-87c8-e094d64a7e54",
+      "createdAt": "2026-02-11T16:05:51.047Z"
     }
   ]
 }

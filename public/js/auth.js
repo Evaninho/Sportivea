@@ -100,6 +100,7 @@ document.getElementById('form-register').addEventListener('submit', async (e) =>
       showUserSection();
       alert('✓ Inscription réussie! Bienvenue ' + username);
       document.getElementById('form-register').reset();
+      window.location.reload();
     } else {
       errorDiv.classList.remove('hidden');
       errorDiv.textContent = data.error || 'Erreur d\'inscription';
@@ -137,6 +138,7 @@ document.getElementById('form-login').addEventListener('submit', async (e) => {
       showUserSection();
       alert('✓ Connexion réussie! Bienvenue ' + currentUser.username);
       document.getElementById('form-login').reset();
+      window.location.reload();
     } else {
       errorDiv.classList.remove('hidden');
       errorDiv.textContent = data.error || 'Erreur de connexion';

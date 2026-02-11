@@ -101,10 +101,11 @@
       "date": "2029-06-14",
       "time": "05:21",
       "category": "Natation",
-      "votes": 1,
+      "votes": 2,
       "createdAt": "2026-02-11T15:37:04.959Z",
       "voters": [
-        "15e5a849-5be4-4057-bfe2-13c47afa8c03"
+        "15e5a849-5be4-4057-bfe2-13c47afa8c03",
+        "39fb4664-50ed-4e5e-9173-bea56ffefb6b"
       ]
     },
     {
@@ -115,8 +116,11 @@
       "date": "2026-01-22",
       "time": "13:10",
       "category": "Escalade",
-      "votes": 0,
-      "createdAt": "2026-02-11T15:38:39.103Z"
+      "votes": 1,
+      "createdAt": "2026-02-11T15:38:39.103Z",
+      "voters": [
+        "39fb4664-50ed-4e5e-9173-bea56ffefb6b"
+      ]
     }
   ]
 }
