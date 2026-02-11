@@ -37,18 +37,15 @@ function renderEvents(events) {
     const card = document.createElement('div');
     card.className = 'bg-white rounded-lg shadow-md hover:shadow-lg transition card-event overflow-hidden';
     card.innerHTML = `
-      <!-- Image/Emoji -->
       <div class="h-40 bg-gradient-to-br from-emerald-500 to-blue-600 flex items-center justify-center text-6xl">
         ${getEventEmoji(event.category)}
       </div>
 
-      <!-- Contenu -->
       <div class="p-5">
         <h4 class="text-lg font-bold text-gray-900 line-clamp-2">${event.title}</h4>
         <p class="text-sm text-gray-600 mt-2">📍 ${event.location}</p>
         <p class="text-sm text-gray-600">📅 ${formatDate(event.date)} - ${event.time}</p>
         
-        <!-- Votes et catégorie -->
         <div class="mt-4 flex justify-between items-center">
           <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-bold">
             👍 ${event.votes} votes
@@ -58,7 +55,6 @@ function renderEvents(events) {
           </span>
         </div>
         
-        <!-- Boutons -->
         <div class="mt-4 flex gap-2">
           <button 
             onclick="showDetail('${event.id}')" 
@@ -81,15 +77,30 @@ function renderEvents(events) {
 
 // ============ VOTER ============
 async function vote(id) {
+  // Vérifier si connecté
+  if (!token) {
+    alert('⚠️ Vous devez être connecté pour voter!');
+    openLoginModal();
+    return;
+  }
+
   try {
-    const response = await fetch(`/api/events/${id}/vote`, { method: 'POST' });
-    const data = await response.json();
-    
-    // Mettre à jour localement
-    const event = allEvents.find(e => e.id === id);
-    if (event) {
-      event.votes = data.votes;
-      renderEvents(filteredEvents);
+    const response = await fetch(`/api/events/${id}/vote`, {
+      method: 'POST',
+      headers: { 'authorization': token }
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      const event = allEvents.find(e => e.id === id);
+      if (event) {
+        event.votes = data.votes;
+        renderEvents(filteredEvents);
+      }
+      alert('✓ Vote enregistré!');
+    } else {
+      const error = await response.json();
+      alert('❌ ' + error.error);
     }
   } catch (error) {
     console.error('Erreur vote:', error);
@@ -100,6 +111,14 @@ async function vote(id) {
 // ============ VOTER DEPUIS LA MODALE ============
 async function voteFromDetail() {
   if (!currentDetailEventId) return;
+  
+  if (!token) {
+    alert('⚠️ Vous devez être connecté pour voter!');
+    closeDetailModal();
+    openLoginModal();
+    return;
+  }
+
   await vote(currentDetailEventId);
   closeDetailModal();
   loadEvents();
@@ -120,6 +139,18 @@ function showDetail(id) {
   document.getElementById('detail-category').textContent = event.category;
   document.getElementById('detail-votes').textContent = event.votes;
 
+  // Bouton voter - mettre à jour l'état
+  const voteButton = document.getElementById('vote-button');
+  if (!token) {
+    voteButton.textContent = '🔓 Connectez-vous pour voter';
+    voteButton.disabled = true;
+    voteButton.classList.add('opacity-50', 'cursor-not-allowed');
+  } else {
+    voteButton.textContent = '👍 Voter maintenant';
+    voteButton.disabled = false;
+    voteButton.classList.remove('opacity-50', 'cursor-not-allowed');
+  }
+
   document.getElementById('detail-modal').classList.remove('hidden');
 }
 
@@ -130,6 +161,11 @@ function closeDetailModal() {
 
 // ============ MODAL AJOUT ============
 function openModal() {
+  if (!token) {
+    alert('⚠️ Vous devez être connecté pour créer un événement!');
+    openLoginModal();
+    return;
+  }
   document.getElementById('modal').classList.remove('hidden');
   document.getElementById('form-event').reset();
 }
@@ -194,7 +230,6 @@ function filterEvents() {
   renderEvents(filteredEvents);
 }
 
-// Filtrer en temps réel
 document.getElementById('search').addEventListener('input', filterEvents);
 document.getElementById('filter-category').addEventListener('change', filterEvents);
 
