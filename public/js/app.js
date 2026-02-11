@@ -50,7 +50,7 @@ function renderEvents(events) {
           <span class="bg-orange-100 text-orange-700 px-3 py-1 rounded-full text-sm font-bold">
             👍 ${event.votes} votes
           </span>
-          <span class="text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-full font-semibold">
+          <span class="text-xs bg-green-100 text-green-700 px-2 py-1 rounded-full font-semibold">
             ${event.category}
           </span>
         </div>
@@ -58,7 +58,7 @@ function renderEvents(events) {
         <div class="mt-4 flex gap-2">
           <button 
             onclick="showDetail('${event.id}')" 
-            class="flex-1 bg-emerald-600 text-white py-2 rounded-lg hover:bg-emerald-700 transition font-semibold text-sm"
+            class="flex-1 bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 transition font-semibold text-sm"
           >
             Détails
           </button>
