@@ -6,7 +6,16 @@
       "email": "o@o.o",
       "password": "Password",
       "token": "b783cb0b-804f-4895-b0a2-4ad2586ed7b7",
-      "createdAt": "2026-02-11T14:59:44.637Z"
+      "createdAt": "2026-02-11T14:59:44.637Z",
+    },
+    {
+
+      "id": "15e5a849-5be4-4057-bfe2-13c47afa8c03",
+      "username": "roger le bon vieux franck",
+      "email": "evan.corbiere91@gmail.com",
+      "password": "okgoat",
+      "token": "e236fd60-de60-4036-bcad-afaa69f86641",
+      "createdAt": "2026-02-11T14:58:32.357Z"
     }
   ]
 }
