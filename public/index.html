@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,436 +8,452 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
+
     .card-event {
       animation: fadeIn 0.3s ease-out;
     }
+
     .card-event:hover {
       transform: translateY(-5px);
     }
   </style>
 </head>
+
 <body class="bg-gray-50">
 
-<!-- ============ HEADER ============ -->
-<header class="bg-white shadow-md sticky top-0 z-50">
-  <nav class="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
-    <div class="flex items-center gap-3">
-      <img src="./img/logo_sportivea-removebg-preview.png" alt="Logo Sportivea" class="h-24 w-24">
-      <div>
-        <h1 class="text-2xl font-bold text-green-600">Sportivea</h1>
-        <p class="text-xs text-gray-500">Vivez le sport, tant qu'il est là</p>
-      </div>
-    </div>
+  <!-- ============ HEADER ============ -->
+  <header class="bg-white/90 backdrop-blur-md shadow-md sticky top-0 z-50">
+    <nav class="max-w-7xl mx-auto px-4 sm:px-6 py-3">
+      <div class="flex justify-between items-center">
 
-    <!-- BOUTONS DROITE (LOGIN/Profil + Ajouter) -->
-    <div class="flex items-center gap-4">
-      <!-- AVANT CONNEXION -->
-      <div id="auth-buttons" class="flex gap-3">
-        <button 
-          onclick="openLoginModal()" 
-          class="bg-orange-500 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition font-semibold"
-        >
-        Se connecter
-        </button>
-        <button 
-          onclick="openRegisterModal()" 
-          class=" text-green-600 px-6 py-2 rounded-lg hover:bg-gray-300 transition font-semibold"
-        >
-        S'inscrire
-        </button>
-      </div>
+        <div class="flex items-center gap-3 cursor-pointer" onclick="window.location.reload()">
+          <img src="./img/logo_sportivea-removebg-preview.png" alt="Logo Sportivea" class="h-14 w-14 sm:h-20 sm:w-20">
+          <div>
+            <h1 class="text-xl sm:text-2xl font-bold text-green-600 leading-none tracking-tight">Sportivea</h1>
+            <p class="hidden sm:block text-[10px] text-gray-400 font-medium italic">Vivez le sport, tant qu'il est là
+            </p>
+          </div>
+        </div>
 
-      <!-- APRÈS CONNEXION -->
-      <div id="user-section" class="hidden flex gap-4 items-center">
-        <span class="text-gray-700 font-semibold">👤 <span id="username-display"></span></span>
-        <button 
-          onclick="openModal()" 
-          class="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-emerald-700 transition font-semibold"
-        >
-          + Ajouter
-        </button>
-        <button 
-          onclick="logout()" 
-          class="bg-orange-800 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition font-semibold"
-        >
-        Déconnexion
-        </button>
-      </div>
-    </div>
-  </nav>
-</header>
+        <div class="hidden md:flex items-center gap-4">
+          <div id="auth-buttons" class="flex items-center gap-3">
+            <button onclick="openLoginModal()"
+              class="text-sm font-bold text-gray-600 hover:text-orange-500 transition">Connexion</button>
+            <button onclick="openRegisterModal()"
+              class="bg-green-600 text-white px-6 py-2.5 rounded-full text-sm font-bold shadow-lg hover:bg-green-700 transition active:scale-95">S'inscrire</button>
+          </div>
 
-<!-- ============ HERO SECTION ============ -->
-<section class="bg-green-600 text-white py-16 px-6">
-  <div class="max-w-7xl mx-auto text-center">
-    <h2 class="text-5xl font-bold mb-4">Vivez le sport, tant qu'il est là.</h2>
-    <p class="text-xl text-emerald-100 mb-8">Découvrez, votez et rejoignez les événements sportifs qui vous passionnent</p>
-    
-    <!-- Barre de recherche -->
-    <div class="flex gap-4 max-w-2xl mx-auto">
-      <input 
-        type="text" 
-        id="search" 
-        placeholder="Chercher un événement..." 
-        class="flex-1 px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-      >
-      <select 
-        id="filter-category"
-        class="px-4 py-3 rounded-lg text-gray-900 focus:outline-none focus:ring-2 focus:ring-orange-500"
-      >
-        <option value="">Toutes catégories</option>
-        <option value="Football">Football</option>
-        <option value="Running">Running</option>
-        <option value="Tennis">Tennis</option>
-        <option value="Basketball">Basketball</option>
-        <option value="Natation">Natation</option>
-        <option value="Escalade">Escalade</option>
-        <option value="Autres">Autre</option>
-      </select>
-      <button 
-        onclick="filterEvents()" 
-        class="bg-orange-500 text-white px-6 py-3 rounded-lg hover:bg-orange-600 transition font-semibold"
-      >
-        🔍 Rechercher
-      </button>
-    </div>
-  </div>
-</section>
+          <div id="user-section" class="hidden flex items-center gap-3">
+            <span class="bg-gray-100 px-4 py-2 rounded-full text-sm font-bold text-gray-700">
+              👤 <span id="username-display"></span>
+            </span>
+            <button onclick="openModal()"
+              class="bg-orange-500 text-white px-5 py-2.5 rounded-full text-sm font-bold shadow-lg hover:bg-orange-600 transition">+
+              Ajouter</button>
+            <button onclick="logout()"
+              class="p-2.5 bg-gray-100 text-gray-500 hover:text-red-600 rounded-full transition">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+              </svg>
+            </button>
+          </div>
+        </div>
 
-<!-- ============ CONTENU PRINCIPAL ============ -->
-<main class="max-w-7xl mx-auto px-6 py-12">
-  
-  <div class="mb-12">
-    <h3 class="text-4xl font-bold text-gray-900">Événements en vedette</h3>
-    <p class="text-gray-600 mt-2 text-lg">Découvrez les meilleurs événements sportifs de votre région</p>
-  </div>
-
-  <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-    <!-- Les cartes vont se remplir avec JavaScript -->
-  </div>
-
-  <div id="empty-state" class="text-center py-12 hidden">
-    <p class="text-gray-500 text-lg">Aucun événement trouvé</p>
-  </div>
-
-</main>
-
-<!-- ============ FOOTER ============ -->
-<footer class="bg-gray-900 text-white py-12 px-6 mt-16">
-  <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
-    <div>
-      <h4 class="text-lg font-bold mb-4">Sportivea</h4>
-      <p class="text-gray-400">La plateforme collaborative pour tous les événements sportifs</p>
-    </div>
-    <div>
-      <h4 class="text-lg font-bold mb-4">Liens rapides</h4>
-      <ul class="space-y-2 text-gray-400">
-        <li><a href="#" class="hover:text-emerald-400 transition">À propos</a></li>
-        <li><a href="#" class="hover:text-emerald-400 transition">Contact</a></li>
-        <li><a href="#" class="hover:text-emerald-400 transition">Conditions</a></li>
-      </ul>
-    </div>
-    <div>
-      <h4 class="text-lg font-bold mb-4">Contact</h4>
-      <p class="text-gray-400"> info@sportivea.fr</p>
-      <p class="text-gray-400"> 02 47 XX XX XX</p>
-    </div>
-  </div>
-  <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
-    <p>&copy; 2026 Sportivea. Tous droits réservés.</p>
-  </div>
-</footer>
-
-<!-- ============ MODAL CONNEXION ============ -->
-<div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
-    
-    <div class="bg-green-600 text-white p-6 flex justify-between items-center">
-      <h2 class="text-2xl font-bold">Se connecter</h2>
-      <button onclick="closeLoginModal()" class="text-2xl hover:opacity-80">×</button>
-    </div>
-
-    <form id="form-login" class="p-6 space-y-4">
-      
-      <div>
-        <label class="block text-sm font-semibold text-gray-900 mb-2">Email *</label>
-        <input 
-          type="email" 
-          id="login-email" 
-          placeholder="votre@email.com" 
-          required 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-        >
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold text-gray-900 mb-2">Mot de passe *</label>
-        <input 
-          type="password" 
-          id="login-password" 
-          placeholder="••••••••" 
-          required 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-        >
-      </div>
-
-      <div id="login-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"></div>
-
-      <div class="flex gap-4 justify-end pt-4 border-t">
-        <button 
-          type="button" 
-          onclick="closeLoginModal()" 
-          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50"
-        >
-          Annuler
-        </button>
-        <button 
-          type="submit" 
-          class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-700 transition"
-        >
-          Connexion
+        <button id="burger-btn"
+          class="md:hidden p-2 text-gray-600 focus:outline-none transition-transform active:scale-90">
+          <svg id="burger-icon" xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24"
+            stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
         </button>
       </div>
 
-      <p class="text-center text-gray-600 text-sm">
-        Pas de compte? <button type="button" onclick="switchToRegister()" class="text-green-600 hover:underline font-semibold">S'inscrire</button>
+      <div id="mobile-menu"
+        class="hidden md:hidden flex flex-col gap-4 pt-4 pb-6 border-t border-gray-100 mt-2 animate-fade-in">
+        <div id="auth-buttons-mobile" class="flex flex-col gap-3">
+          <button onclick="openLoginModal(); toggleMenu()"
+            class="w-full text-center py-3 font-bold text-gray-700 border border-gray-200 rounded-xl">Connexion</button>
+          <button onclick="openRegisterModal(); toggleMenu()"
+            class="w-full bg-green-600 text-white py-4 rounded-xl font-bold shadow-md">S'inscrire</button>
+        </div>
+
+        <div id="user-section-mobile" class="hidden flex flex-col gap-3">
+          <div class="bg-gray-50 p-4 rounded-xl flex items-center justify-between">
+            <span class="font-bold text-gray-700 text-sm">👤 <span id="username-display-mobile"></span></span>
+            <span class="text-[10px] text-green-600 font-black uppercase tracking-widest">Connecté</span>
+          </div>
+          <button onclick="openModal(); toggleMenu()"
+            class="w-full bg-orange-500 text-white py-4 rounded-xl font-bold shadow-md">+ Créer un événement</button>
+          <button onclick="logout()" class="w-full text-red-500 py-2 font-bold text-center text-sm">Déconnexion</button>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- ============ HERO SECTION ============ -->
+  <section class="bg-green-600 text-white py-12 px-4 sm:py-20 sm:px-6 relative overflow-hidden">
+    <div class="absolute top-0 right-0 -mt-10 -mr-10 w-64 h-64 bg-green-500 rounded-full blur-3xl opacity-50"></div>
+
+    <div class="max-w-7xl mx-auto text-center relative z-10">
+      <h2 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold mb-4 leading-tight">
+        Vivez le sport, <br class="sm:hidden"> tant qu'il est là.
+      </h2>
+      <p class="text-lg sm:text-xl text-emerald-100 mb-10 max-w-2xl mx-auto">
+        Découvrez, votez et rejoignez les événements sportifs qui vous passionnent.
       </p>
-    </form>
-  </div>
-</div>
 
-<!-- ============ MODAL INSCRIPTION ============ -->
-<div id="register-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
-    
-    <div class="bg-green-600 text-white p-6 flex justify-between items-center">
-      <h2 class="text-2xl font-bold">S'inscrire</h2>
-      <button onclick="closeRegisterModal()" class="text-2xl hover:opacity-80">×</button>
+      <div
+        class="flex flex-col md:flex-row gap-3 max-w-3xl mx-auto bg-white/10 p-2 sm:p-3 rounded-2xl backdrop-blur-md shadow-2xl">
+
+        <div class="relative flex-1">
+          <input type="text" id="search" placeholder="Chercher un événement..."
+            class="w-full pl-4 pr-4 py-3 sm:py-4 rounded-xl text-gray-900 focus:outline-none focus:ring-4 focus:ring-orange-500/50 transition-all border-none shadow-inner">
+        </div>
+
+        <select id="filter-category"
+          class="w-full md:w-56 px-4 py-3 sm:py-4 rounded-xl text-gray-900 focus:outline-none focus:ring-4 focus:ring-orange-500/50 transition-all cursor-pointer font-medium border-none shadow-inner">
+          <option value="">Toutes catégories</option>
+          <option value="Football">Football</option>
+          <option value="Running">Running</option>
+          <option value="Tennis">Tennis</option>
+          <option value="Basketball">Basketball</option>
+          <option value="Natation">Natation</option>
+          <option value="Escalade">Escalade</option>
+          <option value="Autres">Autres</option>
+        </select>
+
+        <button onclick="filterEvents()"
+          class="w-full md:w-auto bg-orange-500 text-white px-8 py-3 sm:py-4 rounded-xl hover:bg-orange-600 active:scale-95 transition-all font-bold shadow-lg flex items-center justify-center gap-2">
+          <span class="text-xl">🔍</span>
+          <span class="md:hidden lg:inline">Rechercher</span>
+        </button>
+
+      </div>
+
+      <div class="mt-8 flex justify-center gap-4 text-xs sm:text-sm font-medium text-emerald-200">
+        <span class="flex items-center gap-1">🔥 <span class="hidden sm:inline">Tendance :</span> Football</span>
+        <span class="flex items-center gap-1">📅 <span class="hidden sm:inline">Cette semaine :</span> +12 events</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTENU PRINCIPAL ============ -->
+  <main class="max-w-7xl mx-auto px-6 py-12">
+
+    <div class="mb-12">
+      <h3 class="text-4xl font-bold text-gray-900">Événements en vedette</h3>
+      <p class="text-gray-600 mt-2 text-lg">Découvrez les meilleurs événements sportifs de votre région</p>
     </div>
 
-    <form id="form-register" class="p-6 space-y-4">
-      
-      <div>
-        <label class="block text-sm font-semibold text-gray-900 mb-2">Pseudo *</label>
-        <input 
-          type="text" 
-          id="register-username" 
-          placeholder="votrepseudo" 
-          required 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-        >
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold text-gray-900 mb-2">Email *</label>
-        <input 
-          type="email" 
-          id="register-email" 
-          placeholder="votre@email.com" 
-          required 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-        >
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold text-gray-900 mb-2">Mot de passe *</label>
-        <input 
-          type="password" 
-          id="register-password" 
-          placeholder="••••••••" 
-          required 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-        >
-      </div>
-
-      <div id="register-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"></div>
-
-      <div class="flex gap-4 justify-end pt-4 border-t">
-        <button 
-          type="button" 
-          onclick="closeRegisterModal()" 
-          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50"
-        >
-          Annuler
-        </button>
-        <button 
-          type="submit" 
-          class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-700 transition"
-        >
-          Inscription
-        </button>
-      </div>
-
-      <p class="text-center text-gray-600 text-sm">
-        Déjà inscrit? <button type="button" onclick="switchToLogin()" class="text-green-600 hover:underline font-semibold">Se connecter</button>
-      </p>
-    </form>
-  </div>
-</div>
-
-<!-- ============ MODAL AJOUT ÉVÉNEMENT ============ -->
-<div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto">
-    
-    <div class="sticky top-0 bg-green-600 text-white p-6 flex justify-between items-center">
-      <h2 class="text-2xl font-bold">Créer un événement</h2>
-      <button onclick="closeModal()" class="text-2xl hover:opacity-80">×</button>
+    <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+      <!-- Les cartes vont se remplir avec JavaScript -->
     </div>
 
-    <form id="form-event" class="p-6 space-y-4">
-      
-      <div>
-        <label class="block text-sm font-semibold text-gray-900 mb-2">Titre *</label>
-        <input 
-          type="text" 
-          id="title" 
-          placeholder="ex: Tournoi de Football" 
-          required 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-        >
-      </div>
-
-      <div>
-        <label class="block text-sm font-semibold text-gray-900 mb-2">Description *</label>
-        <textarea 
-          id="description" 
-          placeholder="Décrivez votre événement..." 
-          required 
-          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 h-24"
-        ></textarea>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-semibold text-gray-900 mb-2">Lieu *</label>
-          <input 
-            type="text" 
-            id="location" 
-            placeholder="ex: Stade Municipal" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-        </div>
-        <div>
-          <label class="block text-sm font-semibold text-gray-900 mb-2">Catégorie *</label>
-          <select 
-            id="category" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-            <option value="">Sélectionner</option>
-            <option value="Football">Football</option>
-            <option value="Running">Running</option>
-            <option value="Tennis">Tennis</option>
-            <option value="Basketball">Basketball</option>
-            <option value="Natation">Natation</option>
-            <option value="Escalade">Escalade</option>
-            <option value="Autres">Autre</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 gap-4">
-        <div>
-          <label class="block text-sm font-semibold text-gray-900 mb-2">Date *</label>
-          <input 
-            type="date" 
-            id="date" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-        </div>
-        <div>
-          <label class="block text-sm font-semibold text-gray-900 mb-2">Heure *</label>
-          <input 
-            type="time" 
-            id="time" 
-            required 
-            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600"
-          >
-        </div>
-      </div>
-
-      <div class="flex gap-4 justify-end pt-4 border-t">
-        <button 
-          type="button" 
-          onclick="closeModal()" 
-          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50"
-        >
-          Annuler
-        </button>
-        <button 
-          type="submit" 
-          class="px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition"
-        >
-          ✓ Créer l'événement
-        </button>
-      </div>
-
-    </form>
-  </div>
-</div>
-
-<!-- ============ MODAL DÉTAILS ============ -->
-<div id="detail-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-  <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
-    
-    <div class="bg-green-600 text-white p-6 flex justify-between items-center">
-      <h2 id="detail-title" class="text-2xl font-bold">Détails de l'événement</h2>
-      <button onclick="closeDetailModal()" class="text-2xl hover:opacity-80">×</button>
+    <div id="empty-state" class="text-center py-12 hidden">
+      <p class="text-gray-500 text-lg">Aucun événement trouvé</p>
     </div>
 
-    <div class="p-8 space-y-6">
-      
+  </main>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="bg-gray-900 text-white py-12 px-6 mt-16">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
       <div>
-        <h3 id="detail-name" class="text-2xl font-bold text-gray-900 mb-4">Titre</h3>
-        <p id="detail-desc" class="text-gray-700 leading-relaxed">Description...</p>
+        <h4 class="text-lg font-bold mb-4">Sportivea</h4>
+        <p class="text-gray-400">La plateforme collaborative pour tous les événements sportifs</p>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold mb-4">Liens rapides</h4>
+        <ul class="space-y-2 text-gray-400">
+          <li><a href="#" class="hover:text-emerald-400 transition">À propos</a></li>
+          <li><a href="#" class="hover:text-emerald-400 transition">Contact</a></li>
+          <li><a href="#" class="hover:text-emerald-400 transition">Conditions</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-lg font-bold mb-4">Contact</h4>
+        <p class="text-gray-400"> info@sportivea.fr</p>
+        <p class="text-gray-400"> 02 47 XX XX XX</p>
+      </div>
+    </div>
+    <div class="border-t border-gray-800 pt-8 text-center text-gray-500">
+      <p>&copy; 2026 Sportivea. Tous droits réservés.</p>
+    </div>
+  </footer>
+
+  <!-- ============ MODAL CONNEXION ============ -->
+  <div id="login-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+
+      <div class="bg-green-600 text-white p-6 flex justify-between items-center">
+        <h2 class="text-2xl font-bold">Se connecter</h2>
+        <button onclick="closeLoginModal()" class="text-2xl hover:opacity-80">×</button>
       </div>
 
-      <div class="grid grid-cols-2 gap-4 bg-gray-50 p-6 rounded-lg">
-        <div>
-          <p class="text-sm text-gray-600 font-semibold">📍 Lieu</p>
-          <p id="detail-location" class="text-lg text-gray-900">Lieu</p>
-        </div>
-        <div>
-          <p class="text-sm text-gray-600 font-semibold">📅 Date et Heure</p>
-          <p id="detail-date" class="text-lg text-gray-900">Date</p>
-        </div>
-        <div>
-          <p class="text-sm text-gray-600 font-semibold">📂 Catégorie</p>
-          <p id="detail-category" class="text-lg text-gray-900">Catégorie</p>
-        </div>
-        <div>
-          <p class="text-sm text-gray-600 font-semibold">👍 Votes</p>
-          <p id="detail-votes" class="text-lg text-orange-600 font-bold">0</p>
-        </div>
-      </div>
+      <form id="form-login" class="p-6 space-y-4">
 
-      <div class="flex gap-4 justify-end pt-4 border-t">
-        <button 
-          onclick="closeDetailModal()" 
-          class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50"
-        >
-          Fermer
-        </button>
-        <button 
-          id="vote-button"
-          onclick="voteFromDetail()" 
-          class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition"
-        >
-          👍 Voter maintenant
-        </button>
-      </div>
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Email *</label>
+          <input type="email" id="login-email" placeholder="votre@email.com" required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
 
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Mot de passe *</label>
+          <input type="password" id="login-password" placeholder="••••••••" required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+
+        <div id="login-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"></div>
+
+        <div class="flex gap-4 justify-end pt-4 border-t">
+          <button type="button" onclick="closeLoginModal()"
+            class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50">
+            Annuler
+          </button>
+          <button type="submit"
+            class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-700 transition">
+            Connexion
+          </button>
+        </div>
+
+        <p class="text-center text-gray-600 text-sm">
+          Pas de compte? <button type="button" onclick="switchToRegister()"
+            class="text-green-600 hover:underline font-semibold">S'inscrire</button>
+        </p>
+      </form>
     </div>
   </div>
-</div>
 
-<script src="/js/auth.js"></script>
-<script src="/js/app.js"></script>
+  <!-- ============ MODAL INSCRIPTION ============ -->
+  <div id="register-modal"
+    class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full">
+
+      <div class="bg-green-600 text-white p-6 flex justify-between items-center">
+        <h2 class="text-2xl font-bold">S'inscrire</h2>
+        <button onclick="closeRegisterModal()" class="text-2xl hover:opacity-80">×</button>
+      </div>
+
+      <form id="form-register" class="p-6 space-y-4">
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Pseudo *</label>
+          <input type="text" id="register-username" placeholder="votrepseudo" required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Email *</label>
+          <input type="email" id="register-email" placeholder="votre@email.com" required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Mot de passe *</label>
+          <input type="password" id="register-password" placeholder="••••••••" required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+
+        <div id="register-error" class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded"></div>
+
+        <div class="flex gap-4 justify-end pt-4 border-t">
+          <button type="button" onclick="closeRegisterModal()"
+            class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50">
+            Annuler
+          </button>
+          <button type="submit"
+            class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-700 transition">
+            Inscription
+          </button>
+        </div>
+
+        <p class="text-center text-gray-600 text-sm">
+          Déjà inscrit? <button type="button" onclick="switchToLogin()"
+            class="text-green-600 hover:underline font-semibold">Se connecter</button>
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL AJOUT ÉVÉNEMENT ============ -->
+  <div id="modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-md w-full max-h-screen overflow-y-auto">
+
+      <div class="sticky top-0 bg-green-600 text-white p-6 flex justify-between items-center">
+        <h2 class="text-2xl font-bold">Créer un événement</h2>
+        <button onclick="closeModal()" class="text-2xl hover:opacity-80">×</button>
+      </div>
+
+      <form id="form-event" class="p-6 space-y-4">
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Titre *</label>
+          <input type="text" id="title" placeholder="ex: Tournoi de Football" required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+        </div>
+
+        <div>
+          <label class="block text-sm font-semibold text-gray-900 mb-2">Description *</label>
+          <textarea id="description" placeholder="Décrivez votre événement..." required
+            class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600 h-24"></textarea>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-900 mb-2">Lieu *</label>
+            <input type="text" id="location" placeholder="ex: Stade Municipal" required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-900 mb-2">Catégorie *</label>
+            <select id="category" required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+              <option value="">Sélectionner</option>
+              <option value="Football">Football</option>
+              <option value="Running">Running</option>
+              <option value="Tennis">Tennis</option>
+              <option value="Basketball">Basketball</option>
+              <option value="Natation">Natation</option>
+              <option value="Escalade">Escalade</option>
+              <option value="Autres">Autre</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-semibold text-gray-900 mb-2">Date *</label>
+            <input type="date" id="date" required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+          </div>
+          <div>
+            <label class="block text-sm font-semibold text-gray-900 mb-2">Heure *</label>
+            <input type="time" id="time" required
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-600">
+          </div>
+        </div>
+
+        <div class="flex gap-4 justify-end pt-4 border-t">
+          <button type="button" onclick="closeModal()"
+            class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50">
+            Annuler
+          </button>
+          <button type="submit"
+            class="px-6 py-3 bg-green-600 text-white rounded-lg font-semibold hover:bg-green-700 transition">
+            ✓ Créer l'événement
+          </button>
+        </div>
+
+      </form>
+    </div>
+  </div>
+
+  <!-- ============ MODAL DÉTAILS ============ -->
+  <div id="detail-modal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+    <div class="bg-white rounded-lg shadow-xl max-w-2xl w-full">
+
+      <div class="bg-green-600 text-white p-6 flex justify-between items-center">
+        <h2 id="detail-title" class="text-2xl font-bold">Détails de l'événement</h2>
+        <button onclick="closeDetailModal()" class="text-2xl hover:opacity-80">×</button>
+      </div>
+
+      <div class="p-8 space-y-6">
+
+        <div>
+          <h3 id="detail-name" class="text-2xl font-bold text-gray-900 mb-4">Titre</h3>
+          <p id="detail-desc" class="text-gray-700 leading-relaxed">Description...</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4 bg-gray-50 p-6 rounded-lg">
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">📍 Lieu</p>
+            <p id="detail-location" class="text-lg text-gray-900">Lieu</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">📅 Date et Heure</p>
+            <p id="detail-date" class="text-lg text-gray-900">Date</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">📂 Catégorie</p>
+            <p id="detail-category" class="text-lg text-gray-900">Catégorie</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600 font-semibold">👍 Votes</p>
+            <p id="detail-votes" class="text-lg text-orange-600 font-bold">0</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4 justify-end pt-4 border-t">
+          <button onclick="closeDetailModal()"
+            class="px-6 py-3 border border-gray-300 rounded-lg text-gray-900 font-semibold hover:bg-gray-50">
+            Fermer
+          </button>
+          <button id="vote-button" onclick="voteFromDetail()"
+            class="px-6 py-3 bg-orange-500 text-white rounded-lg font-semibold hover:bg-orange-600 transition">
+            👍 Voter maintenant
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/app.js"></script>
+  <script>
+    // --- GESTION DU MENU BURGER ---
+    const burgerBtn = document.getElementById('burger-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const burgerIcon = document.getElementById('burger-icon');
+
+    function toggleMenu() {
+      mobileMenu.classList.toggle('hidden');
+      // Change l'icône entre Burger et Croix (X)
+      if (mobileMenu.classList.contains('hidden')) {
+        burgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
+      } else {
+        burgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />';
+      }
+    }
+
+    if (burgerBtn) burgerBtn.addEventListener('click', toggleMenu);
+
+    // --- SYNCHRONISATION DES MENUS (IMPORTANT) ---
+    // Modifiez votre fonction showUserSection() existante pour inclure ceci :
+    const originalShowUserSection = showUserSection;
+    showUserSection = function () {
+      originalShowUserSection(); // Appelle l'ancienne fonction
+
+      // Met à jour la partie Mobile
+      document.getElementById('auth-buttons-mobile').classList.add('hidden');
+      document.getElementById('user-section-mobile').classList.remove('hidden');
+      document.getElementById('username-display-mobile').textContent = currentUser.username;
+    };
+
+    // Modifiez votre fonction showAuthButtons() existante :
+    const originalShowAuthButtons = showAuthButtons;
+    showAuthButtons = function () {
+      originalShowAuthButtons(); // Appelle l'ancienne fonction
+
+      // Met à jour la partie Mobile
+      document.getElementById('auth-buttons-mobile').classList.remove('hidden');
+      document.getElementById('user-section-mobile').classList.add('hidden');
+    };
+  </script>
 
 </body>
+
 </html>
