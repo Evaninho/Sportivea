@@ -20,3 +20,7 @@ Une fois sur la page d'accueil, vous pouvez parcourir la liste des événements 
 Répartition des tâches:
 
 Le projet a été réalisé en binôme avec une séparation claire des responsabilités pour respecter le délai de deux jours. Un membre s'est concentré sur la partie "Backend" (création du serveur, des routes API et de la logique de stockage JSON), tandis que l'autre a pris en charge la partie "Frontend" (structure HTML, design TailwindCSS et intégration des appels API avec Fetch). Les phases de débogage et de mise en place du responsive design ont été réalisées en collaboration directe.
+
+
+Lien pour accéder a la video de présentation :
+https://filesender.renater.fr/?s=download&token=476ff0a2-89b9-4765-ae33-c4dcc6ce8705
