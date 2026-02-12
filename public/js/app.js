@@ -33,18 +33,17 @@ function renderEvents(events) {
     emptyState.classList.add('hidden');
     container.innerHTML = '';
 
-  emptyState.classList.add('hidden');
-  container.innerHTML = '';
+    emptyState.classList.add('hidden');
+    container.innerHTML = '';
 
-  events.forEach(event => {
-    const card = document.createElement('div');
-    let userID = localStorage.getItem('userId');
-    console.log(event.voters);
-    console.log(event.s);
+    events.forEach(event => {
+        const card = document.createElement('div');
+        let userID = localStorage.getItem('userId');
 
-    
-    card.className = 'bg-white rounded-lg shadow-md hover:shadow-lg transition card-event overflow-hidden';
-    card.innerHTML = `
+
+
+        card.className = 'bg-white rounded-lg shadow-md hover:shadow-lg transition card-event overflow-hidden';
+        card.innerHTML = `
       <div class="h-40 flex items-center justify-center text-6xl">
         <img class="h-40 w-full object-cover" src='${getEventImages(event.category)}'>
       </div>
@@ -120,6 +119,7 @@ async function vote(id) {
                 renderEvents(filteredEvents);
             }
             alert('✓ Vote enregistré!');
+            await loadEvents();
         } else {
             const error = await response.json();
             alert('❌ ' + error.error);
@@ -149,6 +149,8 @@ async function voteFromDetail() {
 // ============ AFFICHER LES DÉTAILS ============
 function showDetail(id) {
     const event = allEvents.find(e => e.id === id);
+    let userID = localStorage.getItem('userId');
+
     if (!event) return;
 
     currentDetailEventId = id;
@@ -165,6 +167,10 @@ function showDetail(id) {
     const voteButton = document.getElementById('vote-button');
     if (!token) {
         voteButton.textContent = ' Connectez-vous pour voter';
+        voteButton.disabled = true;
+        voteButton.classList.add('opacity-50', 'cursor-not-allowed');
+    } else if (event.voters && event.voters.includes(userID)) {
+        voteButton.textContent = '👍 Déjà voté';
         voteButton.disabled = true;
         voteButton.classList.add('opacity-50', 'cursor-not-allowed');
     } else {
@@ -262,16 +268,16 @@ function formatDate(dateString) {
 }
 
 function getEventImages(category) {
-  const images = {
-    'Football': './img/foot.jpg',
-    'Running': './img/running.png',
-    'Tennis': './img/tennis.jpg',
-    'Basketball': './img/basket.png',
-    'Natation': './img/natation.png',
-    'Escalade': './img/escalade.jpg',
-    'Autres': './img/autres.png'
-  };
-  return images[category] || './img/autres.png';
+    const images = {
+        'Football': './img/foot.jpg',
+        'Running': './img/running.png',
+        'Tennis': './img/tennis.jpg',
+        'Basketball': './img/basket.png',
+        'Natation': './img/natation.png',
+        'Escalade': './img/escalade.jpg',
+        'Autres': './img/autres.png'
+    };
+    return images[category] || './img/autres.png';
 }
 
 function showEmptyState() {

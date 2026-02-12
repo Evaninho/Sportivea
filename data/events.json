@@ -21,10 +21,11 @@
       "date": "2025-02-22",
       "time": "09:00",
       "category": "Running",
-      "votes": 19,
+      "votes": 20,
       "voters": [
         "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005",
-        "15e5a849-5be4-4057-bfe2-13c47afa8c03"
+        "15e5a849-5be4-4057-bfe2-13c47afa8c03",
+        "d1fa96b2-f511-4d64-9828-906b2333106a"
       ]
     },
     {
@@ -65,10 +66,11 @@
       "date": "2026-02-17",
       "time": "13:08",
       "category": "Basketball",
-      "votes": 1,
+      "votes": 2,
       "createdAt": "2026-02-11T15:35:52.411Z",
       "voters": [
-        "15e5a849-5be4-4057-bfe2-13c47afa8c03"
+        "15e5a849-5be4-4057-bfe2-13c47afa8c03",
+        "d1fa96b2-f511-4d64-9828-906b2333106a"
       ]
     },
     {
@@ -79,12 +81,13 @@
       "date": "2029-06-14",
       "time": "05:21",
       "category": "Natation",
-      "votes": 3,
+      "votes": 4,
       "createdAt": "2026-02-11T15:37:04.959Z",
       "voters": [
         "15e5a849-5be4-4057-bfe2-13c47afa8c03",
         "39fb4664-50ed-4e5e-9173-bea56ffefb6b",
-        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005"
+        "41edd6b3-d5b5-41fc-9d2e-7d1e6b36e005",
+        "d1fa96b2-f511-4d64-9828-906b2333106a"
       ]
     },
     {

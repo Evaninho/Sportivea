@@ -31,6 +31,14 @@
       "password": "lulu",
       "token": "9fad3da7-c6c6-410d-87c8-e094d64a7e54",
       "createdAt": "2026-02-11T16:05:51.047Z"
+    },
+    {
+      "id": "d1fa96b2-f511-4d64-9828-906b2333106a",
+      "username": "fefe",
+      "email": "fe@gmail.com",
+      "password": "fefe",
+      "token": "702c4038-d263-46da-8648-b1bce5e807f9",
+      "createdAt": "2026-02-12T12:22:46.740Z"
     }
   ]
 }
