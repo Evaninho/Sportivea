@@ -13,6 +13,8 @@ Instructions d'installation:
 
 Pour installer le projet, commencez par télécharger l'archive et extrayez-en le contenu dans le dossier de votre choix. Ouvrez ensuite un terminal dans ce dossier et exécutez la commande npm install pour télécharger toutes les dépendances nécessaires, telles qu'Express et Cors. Une fois l'installation terminée, vous pouvez lancer le serveur en utilisant la commande npm start ou node src/server.js. L'application sera alors accessible sur votre navigateur à l'adresse http://localhost:3000.
 
+Vous pourrez également consulter directement notre projet, qui est hébergé à l’adresse suivante : https://sportivea.alwaysdata.net
+
 Fonctionnalités principales:
 
 Une fois sur la page d'accueil, vous pouvez parcourir la liste des événements sous forme de cartes élégantes. Vous disposez d'une barre de recherche et d'un filtre par catégorie pour trouver rapidement le sport qui vous convient (Football, Running, Tennis, etc.). En cliquant sur "Détails", une fenêtre s'ouvre pour afficher les informations complètes. Pour voter ou ajouter un nouvel événement via le bouton dédié, vous devrez d'abord vous connecter ou créer un compte en quelques secondes via le menu de navigation.
