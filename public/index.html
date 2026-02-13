@@ -158,7 +158,7 @@
     </div>
 
     <div id="events-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
-      <!-- Les cartes vont se remplir avec JavaScript -->
+      
     </div>
 
     <div id="empty-state" class="text-center py-12 hidden">
@@ -421,7 +421,6 @@
 
     function toggleMenu() {
       mobileMenu.classList.toggle('hidden');
-      // Change l'icône entre Burger et Croix (X)
       if (mobileMenu.classList.contains('hidden')) {
         burgerIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />';
       } else {
@@ -432,10 +431,9 @@
     if (burgerBtn) burgerBtn.addEventListener('click', toggleMenu);
 
     // --- SYNCHRONISATION DES MENUS (IMPORTANT) ---
-    // Modifiez votre fonction showUserSection() existante pour inclure ceci :
     const originalShowUserSection = showUserSection;
     showUserSection = function () {
-      originalShowUserSection(); // Appelle l'ancienne fonction
+      originalShowUserSection(); 
 
       // Met à jour la partie Mobile
       document.getElementById('auth-buttons-mobile').classList.add('hidden');
@@ -443,10 +441,9 @@
       document.getElementById('username-display-mobile').textContent = currentUser.username;
     };
 
-    // Modifiez votre fonction showAuthButtons() existante :
     const originalShowAuthButtons = showAuthButtons;
     showAuthButtons = function () {
-      originalShowAuthButtons(); // Appelle l'ancienne fonction
+      originalShowAuthButtons(); 
 
       // Met à jour la partie Mobile
       document.getElementById('auth-buttons-mobile').classList.remove('hidden');
